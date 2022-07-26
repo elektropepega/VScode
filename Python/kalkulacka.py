@@ -1,4 +1,4 @@
-#Python kalkulačka
+#Python kalkulačka neomezené výpočty
 while True:
     cislo1 = int(input("zadej první číslo"))
     operace = input("zedej operaci")
