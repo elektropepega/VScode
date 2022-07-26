@@ -24,9 +24,6 @@ display = ssd1306.SSD1306_SPI(128, 64, spi, dc, rst, cs)
 
 display.text('Elektro!', 0, 0, 1)
 display.show()
-utime.value(1)
-display.text('Tábor!', 0, 0, 2)
-display.show() 
 
 while True:
     if buttonUP.value() == 1:
@@ -62,10 +59,11 @@ while True:
 
 
     if buttonACT.value() == 1:
-        buzzer.value(1)
-        utime.sleep(0.003)
-        buzzer.value(0)
-        utime.value(0.003)
+         
+         buzzer.value(1)
+         utime.sleep(0.003)
+         buzzer.value(0)
+         utime.sleep(0.003)
         
 
        
