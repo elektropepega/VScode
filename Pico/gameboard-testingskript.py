@@ -3,6 +3,9 @@ import utime
 from machine import Pin, SoftSPI
 import ssd1306
 
+from machine import SPI
+spi = SPI(1, sck=Pin(10), mosi=Pin(11))
+
 ledB = machine.Pin(19 , machine.Pin.OUT)
 ledG = machine.Pin(18 , machine.Pin.OUT)
 ledY = machine.Pin(17 , machine.Pin.OUT)
@@ -14,8 +17,6 @@ buttonL = machine.Pin(2, machine.Pin.IN, machine.Pin.PULL_DOWN)
 buttonR = machine.Pin(3, machine.Pin.IN, machine.Pin.PULL_DOWN)
 buttonBCK = machine.Pin(4, machine.Pin.IN, machine.Pin.PULL_DOWN)
 buttonACT = machine.Pin(5, machine.Pin.IN, machine.Pin.PULL_DOWN)
-
-spi = SoftSPI(baudrate=500000, polarity=1, phase=0, sck=Pin(10), mosi=Pin(11), miso=Pin(12))
 
 dc = Pin(8)   # data/command
 rst = Pin(7)  # reset
