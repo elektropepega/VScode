@@ -18,6 +18,7 @@ buttonR = machine.Pin(3, machine.Pin.IN, machine.Pin.PULL_DOWN)
 buttonBCK = machine.Pin(4, machine.Pin.IN, machine.Pin.PULL_DOWN)
 buttonACT = machine.Pin(5, machine.Pin.IN, machine.Pin.PULL_DOWN)
 
+
 dc = Pin(8)   # data/command
 rst = Pin(7)  # reset
 cs = Pin(9)  # chip select, some modules do not have a pin for this
