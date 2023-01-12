@@ -1,4 +1,4 @@
         help            zobrazuje co který příkaz dělá a co lze ještě použít
-        exit            vypne os nastavbu
-        exitall         vypne celý počítač
+        ukoncit            vypne os nastavbu
+        pcoff         vypne celý počítač
         
