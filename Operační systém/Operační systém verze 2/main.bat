@@ -1,13 +1,16 @@
 @ECHO OFF
 CLS
+#####################################################################################################
 mode 80,25
 title UNIKA by zelvafilas
-color 7
+goto setbarva
+
+:zpet
 TYPE unikaimage.txt
 timeout /t 3 /nobreak > NUL
 mode 80,25
 goto :hlmenu
-
+#####################################################################################################
 
 :hlmenu
 CLS
@@ -27,7 +30,7 @@ ECHO \   4)                                                                     
 ECHO \   5) Dalsi fukce a nastaveni                                                 \
 ECHO \   6) O systemu                                                               \
 ECHO \   0) Vypnuti OS nastavby                                                     \
-ECHO \                                                                              \
+ECHO \                                                            by zelvafilas     \
 ECHO +------------------------------------------------------------------------------+
 
 set /p mainmenu="Zadej svoji volbu: " 
@@ -46,7 +49,7 @@ CLS
 TYPE pomoc.txt
 PAUSE
 goto hlmenu
-
+#####################################################################################################
 
 :internet
 CLS
@@ -64,7 +67,7 @@ ECHO \   2) YOUTUBE                                                             
 ECHO \   3) NOVINKY CZ                                                              \
 ECHO \   4) GOOGLE PREKLADAC                                                        \
 ECHO \   5) NIC                                                                     \
-ECHO \   6)                                                                         \
+ECHO \   6) POCASI                                                                  \
 ECHO \   0) Zpet na HLAVNI MENU                                                     \
 ECHO \                                                                              \
 ECHO +------------------------------------------------------------------------------+
@@ -75,11 +78,11 @@ if "%web%"=="2" start https://www.youtube.com
 if "%web%"=="3" start https://www.novinky.cz
 if "%web%"=="4" start https://translate.google.com
 if "%web%"=="5" start https://www.youtube.com/watch?v=dQw4w9WgXcQ
-if "%web%"=="6" goto hlmenu
+if "%web%"=="6" start https://pocasi.idnes.cz/
 if "%web%"=="0" goto hlmenu
 goto internet
 
-
+#####################################################################################################
 :nastaveni
 CLS
 ECHO +----------------+-------------------------------------------------------------+
@@ -134,15 +137,24 @@ ECHO \                                                                          
 ECHO +------------------------------------------------------------------------------+
 
 set /p farba="Zvol svoji volbu: "
-if "%farba%"=="1" color 1
-if "%farba%"=="2" color 7
-if "%farba%"=="3" color 4
-if "%farba%"=="4" color 2
-if "%farba%"=="5" color 5
-if "%farba%"=="6" color 6
+if "%farba%"=="1" color 1 & echo 1 > setcolor.txt
+if "%farba%"=="2" color 7 & echo 2 > setcolor.txt
+if "%farba%"=="3" color 4 & echo 3 > setcolor.txt
+if "%farba%"=="4" color 2 & echo 4 > setcolor.txt
+if "%farba%"=="5" color 5 & echo 5 > setcolor.txt
+if "%farba%"=="6" color 6 & echo 6 > setcolor.txt
 if "%farba%"=="0" goto hlmenu
-
 goto barva
+
+:setbarva
+set /p setcolor=<setcolor.txt
+if "%setcolor%"=="1 " color 1
+if "%setcolor%"=="2 " color 7 
+if "%setcolor%"=="3 " color 4
+if "%setcolor%"=="4 " color 2
+if "%setcolor%"=="5 " color 5
+if "%setcolor%"=="6 " color 6
+goto zpet
 
 
 :net
@@ -153,7 +165,7 @@ timeout /t 6 /nobreak > NUL
 ipconfig
 PAUSE
 goto hlmenu
-
+#####################################################################################################
 :kalkulacka
 CLS
 echo.
@@ -240,7 +252,7 @@ pause
 cls
 goto kalkulacka
 
-
+#####################################################################################################
 
 
 :odejit
