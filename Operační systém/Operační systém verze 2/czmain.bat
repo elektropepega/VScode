@@ -6,16 +6,18 @@ title UNIKA by zelvafilas
 goto setbarva
 
 :zpet
-TYPE unikaimage.txt
-timeout /t 3 /nobreak > NUL
-mode 80,25
+set /p sethatmatilka=<setjazyk.txt
+if "%sethatmatilka%"=="1 " color 1
+if "%sethatmatilka%"=="2 " color 7 
+if "%sethatmatilka%"=="3 " color 4
+
 goto :hlmenu
 #####################################################################################################
 
 :hlmenu
 CLS
 ECHO +----------------+-------------------------------------------------------------+
-ECHO \    UNIKA OS    \                                                             \
+ECHO \    UNIKA OS    \                                                 Cestina     \
 ECHO +----------------+-------------------------------------------------------------+
 ECHO \                                                                              \
 ECHO \                                                                              \
@@ -25,7 +27,7 @@ ECHO \   Zvol dalsi menu nebo funkci.                                           
 ECHO +------------------------------------------------------------------------------+
 ECHO \   1) INTERNET                                                                \
 ECHO \   2) Kalkulacka                                                              \
-ECHO \   3)                                                                         \
+ECHO \   3) Zmena jazyka                                                            \
 ECHO \   4)                                                                         \
 ECHO \   5) Dalsi fukce a nastaveni                                                 \
 ECHO \   6) O systemu                                                               \
@@ -36,10 +38,10 @@ ECHO +--------------------------------------------------------------------------
 set /p mainmenu="Zadej svoji volbu: " 
 if "%mainmenu%"=="1" goto internet
 if "%mainmenu%"=="2" goto kalkulacka
-if "%mainmenu%"=="3" goto hlmenu
+if "%mainmenu%"=="3" goto zmenajazyka
 if "%mainmenu%"=="4" goto hlmenu
 if "%mainmenu%"=="5" goto nastaveni
-if "%mainmenu%"=="6" goto pomoc
+if "%mainmenu%"=="6" systeminfo > c:\specs.txt
 if "%mainmenu%"=="0" goto odejit
 goto hlmenu
 
@@ -143,7 +145,7 @@ if "%farba%"=="3" color 4 & echo 3 > setcolor.txt
 if "%farba%"=="4" color 2 & echo 4 > setcolor.txt
 if "%farba%"=="5" color 5 & echo 5 > setcolor.txt
 if "%farba%"=="6" color 6 & echo 6 > setcolor.txt
-if "%farba%"=="0" goto hlmenu
+if "%farba%"=="0" goto nastaveni
 goto barva
 
 :setbarva
@@ -169,7 +171,7 @@ goto hlmenu
 :kalkulacka
 CLS
 echo.
-echo Vytej v kalkulacce
+echo Vítej v kalkulacce
 echo.
 echo   1)scitani
 echo.
@@ -253,6 +255,35 @@ cls
 goto kalkulacka
 
 #####################################################################################################
+
+:zmenajazyka
+CLS
+ECHO +----------------+-------------------------------------------------------------+
+ECHO \    UNIKA OS    \   Zmena Jazyka                                              \
+ECHO +----------------+-------------------------------------------------------------+
+ECHO \                                                                              \
+ECHO \                                                                              \
+ECHO \                                                                              \
+ECHO \                                                                              \
+ECHO \   Zvol si jazyk operacniho systemu                                           \
+ECHO +------------------------------------------------------------------------------+
+ECHO \   1) Cestina                                                                 \
+ECHO \   2) Anglictina                                                              \
+ECHO \   3) Nemcina                                                                 \
+ECHO \                                                                              \
+ECHO \                                                                              \
+ECHO \                                                                              \
+ECHO \   0) Zpet na HLAVNI MENU                                                     \
+ECHO \                                                                              \
+ECHO +------------------------------------------------------------------------------+
+
+set /p setjazyk="Zadej svoji volbu: " 
+if "%setjazyk%"=="1" echo 1 > setjazyk.txt & czmain.bat
+if "%setjazyk%"=="2" echo 2 > setjazyk.txt & enmain.bat
+if "%setjazyk%"=="3" echo 3 > setjazyk.txt & demain.bat
+if "%setjazyk%"=="0" goto hlmenu
+goto zmenajazyka
+
 
 
 :odejit
