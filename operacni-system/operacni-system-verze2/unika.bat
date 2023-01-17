@@ -1,5 +1,24 @@
-:rune
 @ECHO OFF
+CLS
+
+TYPE unikaimage.txt
+timeout /t 2 /nobreak > NUL
+ECHO.
+:verpass
+set /p passwd=<D:\vscode\VScode\operacni-system\operacni-system-verze2\verification\verifiset.txt
+set /p yourpasswd=<D:\vscode\VScode\operacni-system\operacni-system-verze2\verification\password.txt
+if "%passwd%"=="0 " set /p passwdset="SET PASSword: "
+if "%passwd%"=="0 " echo %passwdset% > D:\vscode\VScode\operacni-system\operacni-system-verze2\verification\password.txt
+
+if "%passwd%"=="1 " set /p passwdver="SET your password: "
+if "%passwd%"=="1 " if "%passwdver%"=="%yourpasswd%" goto rune
+if "%passwd%"=="0 " echo 1 > D:\vscode\VScode\operacni-system\operacni-system-verze2\verification\verifiset.txt
+echo špatné heslo
+timeout /t 1 /nobreak > NUL
+goto verpass
+
+
+:rune
 CLS
 #####################################################################################################
 mode 80,25
