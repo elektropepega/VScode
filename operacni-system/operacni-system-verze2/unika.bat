@@ -1,19 +1,21 @@
 @ECHO OFF
 CLS
-
+mode 80,25
 TYPE unikaimage.txt
 timeout /t 2 /nobreak > NUL
 ECHO.
 :verpass
 set /p passwd=<D:\vscode\VScode\operacni-system\operacni-system-verze2\verification\verifiset.txt
 set /p yourpasswd=<D:\vscode\VScode\operacni-system\operacni-system-verze2\verification\password.txt
-if "%passwd%"=="0 " set /p passwdset="SET PASSword: "
-if "%passwd%"=="0 " echo %passwdset% > D:\vscode\VScode\operacni-system\operacni-system-verze2\verification\password.txt
 
-if "%passwd%"=="1 " set /p passwdver="SET your password: "
-if "%passwd%"=="1 " if "%passwdver%"=="%yourpasswd%" goto rune
+if "%passwd%"=="2 " goto :rune
+if "%passwd%"=="0 " set /p passwdset="Nastav si heslo: "
+if "%passwd%"=="0 " echo %passwdset%> D:\vscode\VScode\operacni-system\operacni-system-verze2\verification\password.txt
 if "%passwd%"=="0 " echo 1 > D:\vscode\VScode\operacni-system\operacni-system-verze2\verification\verifiset.txt
-echo špatné heslo
+if "%passwd%"=="1 " set /p passwdver="Zadej heslo: "
+if "%passwd%"=="1 " if "%passwdver%"=="%yourpasswd%" goto rune
+
+echo spatne heslo
 timeout /t 1 /nobreak > NUL
 goto verpass
 
@@ -81,8 +83,8 @@ if "%language%"=="2 " set /p more="Enter your choice: " & goto skipsettingmenu
 :skipsettingmenu
 if "%more%"=="1" goto barva
 if "%more%"=="2" goto net
-if "%more%"=="3" goto hlmenu
-if "%more%"=="4" goto hlmenu
+if "%more%"=="3" goto changepasswd
+if "%more%"=="4" goto 
 if "%more%"=="5" goto hlmenu
 if "%more%"=="6" goto 
 if "%more%"=="7" shutdown /h
@@ -230,7 +232,18 @@ if "%setjazyk%"=="2" goto rune
 
 if "%setjazyk%"=="0" goto hlmenu
 goto zmenajazyka
+#####################################################################################################
 
+:changepasswd
+CLS
+set /p yourpasswd=<D:\vscode\VScode\operacni-system\operacni-system-verze2\verification\password.txt
+ECHO zmena hesla
+if "%passwd%"=="1 " (set /p chanpas="Zadej sve heslo: ") else (echo heslo vypnuto & goto nastaveni )
+if "%chanpas%"=="%yourpasswd%" (set /p novheslo="Zadej nove heslo: ")
+if "%chanpas%"=="%yourpasswd%" (echo %novheslo%> D:\vscode\VScode\operacni-system\operacni-system-verze2\verification\password.txt)
+ECHO spatne heslo
+timeout /t 1 / nobreak > NUL
+goto nastaveni
 
-
+#####################################################################################################
 :odejit
