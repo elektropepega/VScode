@@ -14,5 +14,5 @@
 \   5) Dalsi fukce a nastaveni                                                 \
 \   6) O systemu                                                               \
 \   0) Vypnuti OS nastavby                                                     \
-\                                                            by zelvafilas     \
+\                                                                              \
 +------------------------------------------------------------------------------+

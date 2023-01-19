@@ -1,21 +1,27 @@
 @ECHO OFF
 CLS
+
 mode 80,25
-TYPE unikaimage.txt
+goto setbarva
+:zpet
+TYPE system-file\unikaimage.txt
 timeout /t 2 /nobreak > NUL
 ECHO.
 :verpass
-set /p passwd=<D:\vscode\VScode\operacni-system\operacni-system-verze2\verification\verifiset.txt
-set /p yourpasswd=<D:\vscode\VScode\operacni-system\operacni-system-verze2\verification\password.txt
+set /p passwd=<system-file\verification\verifiset.txt
+set /p yourpasswd=<system-file\verification\password.txt
+set /p language=<system-file\setjazyk.txt
 
-if "%passwd%"=="2 " goto :rune
-if "%passwd%"=="0 " set /p passwdset="Nastav si heslo: "
-if "%passwd%"=="0 " echo %passwdset%> D:\vscode\VScode\operacni-system\operacni-system-verze2\verification\password.txt
-if "%passwd%"=="0 " echo 1 > D:\vscode\VScode\operacni-system\operacni-system-verze2\verification\verifiset.txt
-if "%passwd%"=="1 " set /p passwdver="Zadej heslo: "
+if "%passwd%"=="2 " goto rune
+if "%language%"=="1 " if "%passwd%"=="0 " set /p passwdset="Nastav si sve heslo: "
+if "%language%"=="2 " if "%passwd%"=="0 " set /p passwdset="Set your password: "
+if "%passwd%"=="0 " echo %passwdset%> system-file\verification\password.txt
+if "%passwd%"=="0 " echo 1 > system-file\verification\verifiset.txt
+if "%language%"=="1 " if "%passwd%"=="1 " set /p passwdver="Zadejte sve heslo: "
+if "%language%"=="2 " if "%passwd%"=="1 " set /p passwdver="Enter your password: "
 if "%passwd%"=="1 " if "%passwdver%"=="%yourpasswd%" goto rune
 
-echo spatne heslo
+
 timeout /t 1 /nobreak > NUL
 goto verpass
 
@@ -25,15 +31,14 @@ CLS
 #####################################################################################################
 mode 80,25
 title UNIKA by zelvafilas
-set /p language=<setjazyk.txt
-goto setbarva
-:zpet
+set /p language=<system-file\setjazyk.txt
+
 goto :hlmenu
 #####################################################################################################
 :hlmenu
 CLS
-if "%language%"=="1 " TYPE D:\vscode\VScode\operacni-system\operacni-system-verze2\language\cz\hlmenu.txt
-if "%language%"=="2 " TYPE D:\vscode\VScode\operacni-system\operacni-system-verze2\language\en\hlmenu.txt
+if "%language%"=="1 " TYPE system-file\language\cz\hlmenu.txt
+if "%language%"=="2 " TYPE system-file\language\en\hlmenu.txt
 if "%language%"=="1 " set /p mainmenu="Zadej svoji volbu: " & goto skiphlmenu
 if "%language%"=="2 " set /p mainmenu="Enter your choice: " & goto skiphlmenu
 
@@ -57,8 +62,8 @@ goto hlmenu
 #####################################################################################################
 :internet
 CLS
-if "%language%"=="1 " TYPE D:\vscode\VScode\operacni-system\operacni-system-verze2\language\cz\internet.txt
-if "%language%"=="2 " TYPE D:\vscode\VScode\operacni-system\operacni-system-verze2\language\en\internet.txt
+if "%language%"=="1 " TYPE system-file\language\cz\internet.txt
+if "%language%"=="2 " TYPE system-file\language\en\internet.txt
 if "%language%"=="1 " set /p web="Zadej svoji volbu: " & goto skipnetmenu
 if "%language%"=="2 " set /p web="Enter your choice: " & goto skipnetmenu
 
@@ -75,8 +80,8 @@ goto internet
 #####################################################################################################
 :nastaveni
 CLS
-if "%language%"=="1 " TYPE D:\vscode\VScode\operacni-system\operacni-system-verze2\language\cz\nastaveni.txt
-if "%language%"=="2 " TYPE D:\vscode\VScode\operacni-system\operacni-system-verze2\language\en\nastaveni.txt
+if "%language%"=="1 " TYPE system-file\language\cz\nastaveni.txt
+if "%language%"=="2 " TYPE system-file\language\en\nastaveni.txt
 if "%language%"=="1 " set /p more="Zadej svoji volbu: " & goto skipsettingmenu
 if "%language%"=="2 " set /p more="Enter your choice: " & goto skipsettingmenu
 
@@ -84,7 +89,7 @@ if "%language%"=="2 " set /p more="Enter your choice: " & goto skipsettingmenu
 if "%more%"=="1" goto barva
 if "%more%"=="2" goto net
 if "%more%"=="3" goto changepasswd
-if "%more%"=="4" goto 
+if "%more%"=="4" goto onoffheslo
 if "%more%"=="5" goto hlmenu
 if "%more%"=="6" goto 
 if "%more%"=="7" shutdown /h
@@ -93,23 +98,23 @@ goto nastaveni
 #####################################################################################################
 :barva
 CLS
-if "%language%"=="1 " TYPE D:\vscode\VScode\operacni-system\operacni-system-verze2\language\cz\barva.txt
-if "%language%"=="2 " TYPE D:\vscode\VScode\operacni-system\operacni-system-verze2\language\en\barva.txt
+if "%language%"=="1 " TYPE system-file\language\cz\barva.txt
+if "%language%"=="2 " TYPE system-file\language\en\barva.txt
 if "%language%"=="1 " set /p farba="Zadej svoji volbu: " & goto skipfarbamenu
 if "%language%"=="2 " set /p farba="Enter your choice: " & goto skipfarbamenu
 
 :skipfarbamenu
-if "%farba%"=="1" color 1 & echo 1 > setcolor.txt
-if "%farba%"=="2" color 7 & echo 2 > setcolor.txt
-if "%farba%"=="3" color 4 & echo 3 > setcolor.txt
-if "%farba%"=="4" color 2 & echo 4 > setcolor.txt
-if "%farba%"=="5" color 5 & echo 5 > setcolor.txt
-if "%farba%"=="6" color 6 & echo 6 > setcolor.txt
+if "%farba%"=="1" color 1 & echo 1 > system-file\setcolor.txt
+if "%farba%"=="2" color 7 & echo 2 > system-file\setcolor.txt
+if "%farba%"=="3" color 4 & echo 3 > system-file\setcolor.txt
+if "%farba%"=="4" color 2 & echo 4 > system-file\setcolor.txt
+if "%farba%"=="5" color 5 & echo 5 > system-file\setcolor.txt
+if "%farba%"=="6" color 6 & echo 6 > system-file\setcolor.txt
 if "%farba%"=="0" goto nastaveni
 goto barva
 
 :setbarva
-set /p setcolor=<setcolor.txt
+set /p setcolor=<system-file\setcolor.txt
 if "%setcolor%"=="1 " color 1
 if "%setcolor%"=="2 " color 7 
 if "%setcolor%"=="3 " color 4
@@ -120,7 +125,7 @@ goto zpet
 
 #####################################################################################################
 :net
-SCL
+cls
 ECHO Za moment se vypise specifikace siti
 ECHO Na hlavni menu se vratite stisknusim jakekoliv klavesy
 timeout /t 6 /nobreak > NUL
@@ -218,14 +223,14 @@ goto kalkulacka
 
 :zmenajazyka
 CLS
-if "%language%"=="1 " TYPE D:\vscode\VScode\operacni-system\operacni-system-verze2\language\cz\jazyk.txt
-if "%language%"=="2 " TYPE D:\vscode\VScode\operacni-system\operacni-system-verze2\language\en\jazyk.txt
+if "%language%"=="1 " TYPE system-file\language\cz\jazyk.txt
+if "%language%"=="2 " TYPE system-file\language\en\jazyk.txt
 if "%language%"=="1 " set /p setjazyk="Zadej svoji volbu: " & goto skipjazykmenu
 if "%language%"=="2 " set /p setjazyk="Enter your choice: " & goto skipjazykmenu
 
 :skipjazykmenu 
-if "%setjazyk%"=="1" echo 1 > setjazyk.txt
-if "%setjazyk%"=="2" echo 2 > setjazyk.txt
+if "%setjazyk%"=="1" echo 1 > system-file\setjazyk.txt
+if "%setjazyk%"=="2" echo 2 > system-file\setjazyk.txt
 if "%setjazyk%"=="1" goto rune
 if "%setjazyk%"=="2" goto rune
 
@@ -236,14 +241,30 @@ goto zmenajazyka
 
 :changepasswd
 CLS
-set /p yourpasswd=<D:\vscode\VScode\operacni-system\operacni-system-verze2\verification\password.txt
-ECHO zmena hesla
-if "%passwd%"=="1 " (set /p chanpas="Zadej sve heslo: ") else (echo heslo vypnuto & goto nastaveni )
-if "%chanpas%"=="%yourpasswd%" (set /p novheslo="Zadej nove heslo: ")
-if "%chanpas%"=="%yourpasswd%" (echo %novheslo%> D:\vscode\VScode\operacni-system\operacni-system-verze2\verification\password.txt)
-ECHO spatne heslo
+if "%passwd%"=="2 " echo heslo vypnuto & goto :rune
+set /p yourpasswd=<system-file\verification\password.txt
+set /p language=<system-file\setjazyk.txt
+
+if "%language%"=="1 " ECHO zmena hesla
+if "%language%"=="2 " echo changing the password
+
+if "%language%"=="1 " if "%passwd%"=="1 " (set /p chanpas="Zadejte sve heslo: ") else (echo heslo vypnuto & goto nastaveni )
+if "%language%"=="2 " if "%passwd%"=="1 " (set /p chanpas="Enter your password: ") else (echo heslo vypnuto & goto nastaveni )
+if "%language%"=="1 " if "%chanpas%"=="%yourpasswd%" (set /p novheslo="Zadejte nove heslo: ")
+if "%language%"=="2 " if "%chanpas%"=="%yourpasswd%" (set /p novheslo="Enter a new password: ")
+if "%chanpas%"=="%yourpasswd%" (echo %novheslo%> system-file\verification\password.txt)
+f "%language%"=="1 " ECHO spatne heslo
+if "%language%"=="2 " echo wrong password
 timeout /t 1 / nobreak > NUL
 goto nastaveni
+
+#####################################################################################################
+:onoffheslo
+CLS
+set /p onoff=<system-file\verification\verifiset.txt
+if "%onoff%"=="1 " echo 2 > system-file\verification\verifiset.txt
+if "%onoff%"=="2 " echo 0 > system-file\verification\verifiset.txt
+goto verpass
 
 #####################################################################################################
 :odejit

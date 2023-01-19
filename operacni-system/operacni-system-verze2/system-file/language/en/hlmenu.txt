@@ -14,5 +14,5 @@
 \   5) Additional function and settings                                        \
 \   6) About the system                                                        \
 \   0) Trun off OS                                                             \
-\                                                            by zelvafilas     \
+\                                                                              \
 +------------------------------------------------------------------------------+
