@@ -12,7 +12,7 @@
 \   3) Zmena jazyka                                                            \
 \   4)                                                                         \
 \   5) Dalsi fukce a nastaveni                                                 \
-\   6) O systemu                                                               \
+\   6)                                                                         \
 \   0) Vypnuti OS nastavby                                                     \
 \                                                                              \
 +------------------------------------------------------------------------------+

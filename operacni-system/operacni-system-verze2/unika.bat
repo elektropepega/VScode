@@ -1,5 +1,7 @@
 @ECHO OFF
 CLS
+set /p setkalk=<system-file\kalkset.txt
+if "%setkalk%"=="1 " goto hlmenu
 
 mode 80,25
 goto setbarva
@@ -30,13 +32,14 @@ goto verpass
 CLS
 #####################################################################################################
 mode 80,25
-title UNIKA by zelvafilas
+title UNIKA
 set /p language=<system-file\setjazyk.txt
 
 goto :hlmenu
 #####################################################################################################
 :hlmenu
 CLS
+echo 0 > system-file\kalkset.txt 
 if "%language%"=="1 " TYPE system-file\language\cz\hlmenu.txt
 if "%language%"=="2 " TYPE system-file\language\en\hlmenu.txt
 if "%language%"=="1 " set /p mainmenu="Zadej svoji volbu: " & goto skiphlmenu
@@ -134,90 +137,9 @@ PAUSE
 goto hlmenu
 #####################################################################################################
 :kalkulacka
-CLS
-echo.
-echo Vítej v kalkulacce
-echo.
-echo   1)scitani
-echo.
-echo   2)odcitani
-echo.
-echo   3)deleni
-echo.
-echo   4)nasobeni
-echo. 
-echo   0)Zpet na hlavni menu
-echo.
-set /p do="Zvol operaci: "
-if %do%== 1 goto scit
-if %do%== 2 goto odcit
-if %do%== 3 goto delen
-if %do%== 4 goto krate
-if %do%== 0 goto hlmenu
-goto kalkulacka
 
-:scit
-cls
-echo Scitani
-echo.
-set /p no1="cislo 1: "
-echo       +
-set /p no2="cislo 2: "
-set /a sum=no1+no2
-echo ------------
-echo %sum%
-echo.
-pause
-cls
-goto kalkulacka
-
-
-:odcit
-cls
-echo Odcitani
-echo.
-set /p no1="cislo 1: "
-echo       -
-set /p no2="cislo 2: "
-set /a sum=no1-no2
-echo ------------
-echo %sum%
-echo.
-pause
-cls
-goto kalkulacka
-
-
-:delen
-cls
-echo Deleni
-echo.
-set /p no1="cislo 1: "
-echo       /
-set /p no2="cislo 2: "
-set /a sum=no1/no2
-echo ------------
-echo %sum%
-echo.
-pause
-cls
-goto kalkulacka
-
-
-:krate
-cls
-echo Nasobeni
-echo.
-set /p no1="cislo 1: "
-echo       *
-set /p no2="cislo 2: "
-set /a sum=no1*no2
-echo ------------
-echo %sum%
-echo.
-pause
-cls
-goto kalkulacka
+if "%language%"=="1 " system-file\language\cz\kalkulacka.bat
+if "%language%"=="2 " system-file\language\en\kalkulacka.bat
 
 #####################################################################################################
 

@@ -1,20 +1,19 @@
-
 :kalkulacka
 CLS
 echo.
-echo Vitej v kalkulacce
+echo Welcome to the calculator
 echo.
-echo   1)scitani
+echo   1)addition
 echo.
-echo   2)odcitani
+echo   2)subtraction
 echo.
-echo   3)deleni
+echo   3)division
 echo.
-echo   4)nasobeni
+echo   4)multiplication
 echo. 
-echo   0)Zpet na hlavni menu
+echo   0)Back to the main menu
 echo.
-set /p do="Zvol operaci: "
+set /p do="Select an operation: "
 if %do%== 1 goto scit
 if %do%== 2 goto odcit
 if %do%== 3 goto delen
@@ -24,11 +23,11 @@ goto kalkulacka
 
 :scit
 cls
-echo Scitani
+echo addition
 echo.
-set /p no1="cislo 1: "
+set /p no1="number 1: "
 echo       +
-set /p no2="cislo 2: "
+set /p no2="number 2: "
 set /a sum=no1+no2
 echo ------------
 echo %sum%
@@ -40,11 +39,11 @@ goto kalkulacka
 
 :odcit
 cls
-echo Odcitani
+echo subtraction
 echo.
-set /p no1="cislo 1: "
+set /p no1="number 1: "
 echo       -
-set /p no2="cislo 2: "
+set /p no2="number 2: "
 set /a sum=no1-no2
 echo ------------
 echo %sum%
@@ -56,11 +55,11 @@ goto kalkulacka
 
 :delen
 cls
-echo Deleni
+echo division
 echo.
-set /p no1="cislo 1: "
+set /p no1="number 1: "
 echo       /
-set /p no2="cislo 2: "
+set /p no2="number 2: "
 set /a sum=no1/no2
 echo ------------
 echo %sum%
@@ -72,11 +71,11 @@ goto kalkulacka
 
 :krate
 cls
-echo Nasobeni
+echo multiplication
 echo.
-set /p no1="cislo 1: "
+set /p no1="number 1: "
 echo       *
-set /p no2="cislo 2: "
+set /p no2="number 2: "
 set /a sum=no1*no2
 echo ------------
 echo %sum%
@@ -86,5 +85,6 @@ cls
 goto kalkulacka
 
 :end
+
 echo 1 > system-file\kalkset.txt
 unika.bat
