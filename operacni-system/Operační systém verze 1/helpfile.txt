@@ -1,4 +1,0 @@
-        help            zobrazuje co který příkaz dělá a co lze ještě použít
-        ukoncit            vypne os nastavbu
-        pcoff         vypne celý počítač
-        
