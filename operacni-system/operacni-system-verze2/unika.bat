@@ -253,7 +253,7 @@ if "%language%"=="2 " if "%passwd%"=="1 " (set /p chanpas="Enter your password: 
 if "%language%"=="1 " if "%chanpas%"=="%yourpasswd%" (set /p novheslo="Zadejte nove heslo: ")
 if "%language%"=="2 " if "%chanpas%"=="%yourpasswd%" (set /p novheslo="Enter a new password: ")
 if "%chanpas%"=="%yourpasswd%" (echo %novheslo%> system-file\verification\password.txt)
-f "%language%"=="1 " ECHO spatne heslo
+if "%language%"=="1 " ECHO spatne heslo
 if "%language%"=="2 " echo wrong password
 timeout /t 1 / nobreak > NUL
 goto nastaveni
