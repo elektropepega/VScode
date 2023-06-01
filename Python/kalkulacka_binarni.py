@@ -5,7 +5,7 @@ operace = input("zadej operaci na provedení bin nebo dec")
 if operace == "bin":
     while cislo != 0:
     zbytek  
-    
+    #
     
     
     
