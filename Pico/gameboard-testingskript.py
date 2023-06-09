@@ -4,7 +4,7 @@ from machine import Pin, SoftSPI
 import ssd1306
 
 from machine import SPI
-spi = SPI(1, sck=Pin(10), mosi=Pin(11))
+spi = SPI(1, sck=Pin(10), mosi=Pin(11)) 
 
 ledB = machine.Pin(19 , machine.Pin.OUT)
 ledG = machine.Pin(18 , machine.Pin.OUT)
