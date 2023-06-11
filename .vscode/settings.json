@@ -18,5 +18,6 @@
     ],
     "python.analysis.extraPaths": [
         ".vscode\\Pico-W-Stub\\stubs"
-    ]
+    ],
+    "picowgo.openOnStart": true
 }

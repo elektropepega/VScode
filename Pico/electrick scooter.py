@@ -1,6 +1,6 @@
 import machine
 import utime
-from machine import Pin, ADC, PWM, I2C, SoftSPI, SPI
+from machine import Pin, ADC, PWM, I2C, SoftSPI, SPI, Timer
 import ssd1306
 from encoder import Encoder
 import uos
@@ -35,15 +35,16 @@ confirm_button_state = False
 confirm_button_previous_state = False
 confirm_button_pressed = False
 
-pocet_pulzu = 0
+
 # Proměnná pro uložení času posledního stisku tlačítka button_encoder
 button_encoder_last = 0
-
+vstupni_pin = Pin(18, Pin.IN)
 # Nastavení maximální hodnoty PWM signálu
 max_pwm = 1023
 # Název konfiguračního souboru
 config_file = "config.txt"
 
+#counter_pin = machine.Pin(18, machine.Pin.IN)
 # Načtení nastavení z konfiguračního souboru
 def load_config():
     global menu_item_max_pwm, menu_item_pwm_freq, menu_item_max_speed
@@ -68,17 +69,8 @@ def save_config():
         file.write(f"max_pwm = {menu_item_max_pwm}\n")
         file.write(f"pwm_freq = {menu_item_pwm_freq}\n")
         file.write(f"max_speed = {menu_item_max_speed}\n")
-# Přerušení pro počítání pulzů
-def pulz_interrupt(pin):
-    global pocet_pulzu
-    pocet_pulzu += 1
-# Kód pro měření pulzů
-def mereni_pulsu():
-    global pocet_pulzu
-    while True:
-        pocet_pulzu = 0  # Resetování počtu pulzů
-        utime.sleep(1)  # Pauza pro měření (1 sekunda)
-        print("Počet pulzů:", pocet_pulzu)
+
+
 # Funkce pro zobrazení textu na displeji
 def show_text(text, line):
     display.text(text, 0, line * 10)
@@ -94,6 +86,8 @@ def update_menu():
         show_text("Pot Value: {}".format(pot_pin.read_u16()), 1)
         show_text("Max PWM: {}".format(menu_item_max_pwm), 2)
         show_text("PWM Freq: {} Hz".format(menu_item_pwm_freq), 3)
+        show_text("{}".format(pocet_pulsu), 4)
+        show_text("Speed: {}".format(scooterspeed), 5)
     else:
         # Menu
         show_text("Menu:", 0)
@@ -104,28 +98,43 @@ def update_menu():
 
 # Načtení konfigurace při spuštění
 load_config()
-
+scooterspeed = 0
+pocet_pulsu = 0
+predchozi_stav = 0
 # Inicializace PWM signálu s výchozí frekvencí
 pwm = PWM(pwm_pin)
 pwm.freq(menu_item_pwm_freq)
 pwm.duty_u16(0)
 
-def pulz_interrupt(pin):
-    global pocet_pulzu
-    pocet_pulzu += 1
+def counter_1():
+    global pocet_pulsu, predchozi_stav
+    while True:
+        aktualni_stav = vstupni_pin.value()
+        if aktualni_stav != predchozi_stav:
+            pocet_pulsu += 1
+            predchozi_stav = aktualni_stav
+        utime.sleep_ms(1)
 
-vstupni_pin = machine.Pin(18, machine.Pin.IN)
-vstupni_pin.attach_irq(trigger=machine.Pin.IRQ_RISING, handler=pulz_interrupt)
-# Hlavní smyčka programu
-_thread.start_new_thread(mereni_pulsu, ())
+_thread.start_new_thread(counter_1, ())
 
 # update_menu()
 # display.fill(0)
-# show_text("    SCOOTER", 3)
+# # show_text("    SCOOTER", 3)
 # utime.sleep_ms(2000)
 # display.fill(0)
 load_config()
+pulsace_zasobnik = 0
+cas_zasobnik = utime.ticks_ms()
 while True:
+    now = utime.ticks_ms()
+    if utime.ticks_diff(now, cas_zasobnik) >= 1000:
+        pulsace_zasobnik = pocet_pulsu
+       
+        scooterspeed = (pocet_pulsu / 433.2) * 20
+    
+        pocet_pulsu = 0
+        
+        cas_zasobnik = now
     # Ovládání menu pomocí tlačítek
     if not menu_item_selected:
         if button_encoder.value() == 0:
@@ -185,7 +194,7 @@ while True:
                         menu_item_max_speed += 10                        
                         utime.sleep_ms(100)
                     if button_down.value() == 1:
-                        menu_item_pwm_freq -= 10
+                        menu_item_max_speed -= 10
                         utime.sleep_ms(100)
                     utime.sleep_ms(150)
                     if button_encoder.value() == 0:                    
@@ -201,10 +210,18 @@ while True:
                 utime.sleep_ms(200)
             utime.sleep_ms(200)
 
-    # Aktualizace hodnoty potenciometru
+        # Aktualizace hodnoty potenciometru
+        # Aktualizace hodnoty potenciometru
     pot_value = pot_pin.read_u16()
-    max_pwm = menu_item_max_pwm
-    duty = int(pot_value * max_pwm / 1023)
+    max_speed = menu_item_max_speed
+
+    # Omezení PWM signálu na základě maximální rychlosti
+    if scooterspeed > max_speed:
+        max_duty = int(max_speed * max_pwm / 20)
+        duty = max_duty
+    else:
+        duty = int(pot_value * max_pwm / 1023)
+
     pwm.duty_u16(duty)
 
     # Aktualizace menu na displeji
