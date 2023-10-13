@@ -65,6 +65,7 @@ def load_config():
 
 # Uložení nastavení do konfiguračního souboru
 def save_config():
+    
     with open(config_file, "w") as file:
         file.write(f"max_pwm = {menu_item_max_pwm}\n")
         file.write(f"pwm_freq = {menu_item_pwm_freq}\n")
